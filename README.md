@@ -7,6 +7,6 @@ Note that the server part does not yet evaluate the NONCE and TIMESTAMP so Retry
 
 I use this lib as there is a bug in the Playframework (https://github.com/playframework/playframework/issues/1159). I have not yet used it against twitter and co, just my own client and server. So if there is a bug that makes it incompatible with the spec, I am sorry. Will test that in a little while.
 
-If you are looking for a built, look here: http://www.raoulsson.com/oauth-pet
+If you are looking for a build, look here: http://www.raoulsson.com/oauth-pet
 
 
