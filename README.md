@@ -9,4 +9,11 @@ I use this lib as there is a bug in the Playframework (https://github.com/playfr
 
 If you are looking for a build, look here: http://www.raoulsson.com/oauth-pet
 
+In the Scala / Playframework context, use it like this (Client side):
+
+    val oAuthPetClient = new OAuthPetClient()
+    val authHeaderValue = oAuthPetClient.computeOAuthHeader(....)  
+    val authHeader = ("Authorization" -> authHeaderValue)
+    val responsePromise = WS.url(url).withHeaders(authHeader).get 
+
 
