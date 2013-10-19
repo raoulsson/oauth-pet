@@ -33,7 +33,7 @@ public class OAuthPetClient {
         this.accessSecret = accessSecret;
     }
 
-    public String computeSignature(String url,
+    public String computeOAuthHeader(String url,
                                    String consumerToken,
                                    String consumerSecret,
                                    String accessToken,
@@ -53,7 +53,7 @@ public class OAuthPetClient {
     }
 
     public String computeOAuthHeader(String url) {
-        return computeSignature(url, this.consumerToken, this.consumerSecret, this.accessToken, this.accessSecret);
+        return computeOAuthHeader(url, this.consumerToken, this.consumerSecret, this.accessToken, this.accessSecret);
     }
 
     public void setConsumerToken(String consumerToken) {

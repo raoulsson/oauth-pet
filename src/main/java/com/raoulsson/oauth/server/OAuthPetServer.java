@@ -2,6 +2,9 @@ package com.raoulsson.oauth.server;
 
 import com.raoulsson.oauth.common.OAuthSignatureValidation;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+
 /**
  * Facade to demonstrate the use on the server side (or to use directly).
  *
@@ -10,13 +13,14 @@ import com.raoulsson.oauth.common.OAuthSignatureValidation;
  */
 public class OAuthPetServer {
 
+    private String method = "GET";
+
     private final OAuthSignatureValidation validator = new OAuthSignatureValidation();
 
     private String consumerSecret;
     private String accessSecret;
 
     public OAuthPetServer() {
-
     }
 
     public OAuthPetServer(String consumerSecret, String accessSecret) {
@@ -33,14 +37,13 @@ public class OAuthPetServer {
                                      String requestSignature,
                                      String requestUrl,
                                      String requestUrlParams) {
-        OAuthRequestParameters oAuthRequestParameters = new OAuthRequestParameters(requestTimestamp,
-                requestNonce,
-                requestAccessToken,
-                requestConsumerToken,
-                requestSignature,
-                requestUrl,
-                requestUrlParams);
-        return validateSignature(consumerSecret, accessSecret, oAuthRequestParameters);
+        try {
+            validator.setConsumerSecret(consumerSecret);
+            validator.setAccessSecret(accessSecret);
+            return validator.validate(requestTimestamp, requestNonce, requestAccessToken, requestConsumerToken, requestSignature, requestUrl, method, requestUrlParams);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean validateSignature(String requestTimestamp,
@@ -50,14 +53,15 @@ public class OAuthPetServer {
                                      String requestSignature,
                                      String requestUrl,
                                      String requestUrlParams) {
-        OAuthRequestParameters oAuthRequestParameters = new OAuthRequestParameters(requestTimestamp,
+        return validateSignature(this.consumerSecret,
+                this.accessSecret,
+                requestTimestamp,
                 requestNonce,
                 requestAccessToken,
                 requestConsumerToken,
                 requestSignature,
                 requestUrl,
                 requestUrlParams);
-        return validateSignature(this.consumerSecret, this.accessSecret, oAuthRequestParameters);
     }
 
     public boolean validateSignature(OAuthRequestParameters p) {
@@ -65,19 +69,27 @@ public class OAuthPetServer {
     }
 
     public boolean validateSignature(String consumerSecret, String accessSecret, OAuthRequestParameters p) {
-        validator.setConsumerSecret(consumerSecret);
-        validator.setAccessSecret(accessSecret);
         try {
-            return validator.validate(p.getTimestamp(),
+            return validateSignature(
+                    consumerSecret,
+                    accessSecret,
+                    p.getTimestamp(),
                     p.getNonce(),
                     p.getAccessToken(),
                     p.getConsumerToken(),
                     p.getSignature(),
                     p.getUrl(),
-                    p.getMethod(),
                     p.getUrlParams());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setConsumerSecret(String consumerSecret) {
+        this.consumerSecret = consumerSecret;
+    }
+
+    public void setAccessSecret(String accessSecret) {
+        this.accessSecret = accessSecret;
     }
 }
