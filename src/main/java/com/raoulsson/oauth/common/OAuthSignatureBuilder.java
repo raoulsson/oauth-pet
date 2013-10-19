@@ -1,4 +1,4 @@
-package com.raoulsson.oauth;
+package com.raoulsson.oauth.common;
 
 import com.google.api.client.auth.oauth.OAuthHmacSigner;
 import com.google.api.client.util.escape.PercentEscaper;

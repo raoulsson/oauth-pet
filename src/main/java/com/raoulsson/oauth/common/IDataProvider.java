@@ -1,4 +1,4 @@
-package com.raoulsson.oauth;
+package com.raoulsson.oauth.common;
 
 /**
  * User: raoulsson

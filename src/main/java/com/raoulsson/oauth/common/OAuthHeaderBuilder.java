@@ -1,4 +1,4 @@
-package com.raoulsson.oauth;
+package com.raoulsson.oauth.common;
 
 import com.google.api.client.util.escape.PercentEscaper;
 
@@ -23,8 +23,6 @@ public class OAuthHeaderBuilder {
         String signature = oAuthSignatureBuilder.sign(httpMethod, url, consumerSecret, accessSecret, params);
 
         String authorizationHeader = computeAuthorizationHeader(params, signature);
-
-//        Logger.info("authorizationHeader = " + authorizationHeader);
 
         return authorizationHeader;
     }
