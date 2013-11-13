@@ -2,3 +2,5 @@
 *.iml
 target
 atlassian-ide-plugin.xml
+src/main/java/com/raoulsson/oauth/ButikDemo.java
+src/main/java/com/raoulsson/oauth/notes.txt
