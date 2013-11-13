@@ -16,4 +16,5 @@ In the Scala / Playframework context, use it like this (Client side):
     val authHeader = ("Authorization" -> authHeaderValue)
     val responsePromise = WS.url(url).withHeaders(authHeader).get 
 
+For a standalone Java example, see Twitter.java (https://github.com/raoulsson/oauth-pet/blob/master/src/main/java/com/raoulsson/oauth/TwitterDemo.java)
 
