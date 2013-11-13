@@ -14,7 +14,7 @@ public class DataProvider implements IDataProvider {
 
     @Override
     public long getTimestamp() {
-        return new Date().getTime();
+        return new Date().getTime() / 1000L;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class TestDataProvider implements IDataProvider {
 
     public final static String EXPECTEDAUTHORIZATIONHEADER = "OAuth oauth_consumer_key=\"ckaWMsS9xUygosxYpI\", oauth_nonce=\"bg57u3ppe1mu485f6nphu0sbu3\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"1376061713059\", oauth_token=\"atnWaWMsS9xUy%26gosxYpI\", oauth_version=\"1.0\", oauth_signature=\"lx81O8%2BRgLaNN97m1GhNe%2FN%2FxWc%3D\"";
 
-    public final static String TIMESTAMP = "1376061713059";
+    public final static String TIMESTAMP = "1376061713";
     public final static String NONCE = "bg57u3ppe1mu485f6nphu0sbu3";
     public final static String URL_PARAMS = "/?name=john&age=26&gender=male";
 
