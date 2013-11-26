@@ -71,6 +71,20 @@ public class TestOAuthSignatureBuilder extends TestCase {
         assertEquals(TestDataProvider.EXPECTEDHMACSHA1, signature);
     }
 
+    public void testSign2() throws GeneralSecurityException {
+        List<OAuthParameter> params = oAuthSignatureBuilder.getSortedOAuthParameters(TestDataProvider.CONSUMERKEY, TestDataProvider.ACCESSTOKEN);
+        oAuthSignatureBuilder.addUrlParameters("http://127.0.0.1:9000/api?email_address=raoul.schmidiger@gmail.com&password=gogogo", params);
+
+        String encodedEmailValue = null;
+        for (OAuthParameter p : params) {
+            if (p.getKey().equals("email_address")) {
+                encodedEmailValue = p.getValue();
+            }
+        }
+        assertTrue(encodedEmailValue != null);
+        assertEquals("raoul.schmidiger%40gmail.com", encodedEmailValue);
+    }
+
     public void testUrlParamStripOff() {
         assertEquals("http://127.0.0.1:9000/api", oAuthSignatureBuilder.stripOffUrlParams("http://127.0.0.1:9000/api?name=john&age=26&gender=male"));
     }

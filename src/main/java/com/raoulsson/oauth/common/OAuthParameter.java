@@ -39,7 +39,7 @@ public class OAuthParameter implements Map.Entry<String, String>, Comparable<OAu
 
     @Override
     public String toString() {
-        return percentEscaper.escape(getKey()) + '=' + percentEscaper.escape(getValue());
+        return getKey() + '=' + getValue();
     }
 
     @Override
