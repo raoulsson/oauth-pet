@@ -67,7 +67,8 @@ public class OAuthSignatureBuilder {
         Iterator<OAuthParameter> iterator = params.iterator();
         while (iterator.hasNext()) {
             OAuthParameter entry = iterator.next();
-            entry.setValue(percentEscaper.escape(entry.getValue()));
+//            entry.setValue(percentEscaper.escape(entry.getValue()));
+            entry.setValue(entry.getValue());
             baseString.append(entry.getKey());
             baseString.append("=");
             baseString.append(entry.getValue());

@@ -50,7 +50,7 @@ public class TestOAuthSignatureBuilder extends TestCase {
         oAuthSignatureBuilder.addUrlParameters("http://127.0.0.1:9000/api?name=john&age=26&gender=male", params);
         String actualParameterString = oAuthSignatureBuilder.computeParameterString(params);
         System.out.println("actualParameterString = " + actualParameterString);
-        assertEquals(TestDataProvider.EXPECTEDPARAMETERSTRING, actualParameterString);
+        assertEquals("age=26&gender=male&name=john&oauth_consumer_key=ckaWMsS9xUygosxYpI&oauth_nonce=bg57u3ppe1mu485f6nphu0sbu3&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1376061713059&oauth_token=atnWaWMsS9xUy&gosxYpI&oauth_version=1.0", actualParameterString);
     }
 
     public void testComputeSignatureBaseString() {
@@ -68,7 +68,7 @@ public class TestOAuthSignatureBuilder extends TestCase {
         List<OAuthParameter> params = oAuthSignatureBuilder.getSortedOAuthParameters(TestDataProvider.CONSUMERKEY, TestDataProvider.ACCESSTOKEN);
         oAuthSignatureBuilder.addUrlParameters("http://127.0.0.1:9000/api?name=john&age=26&gender=male", params);
         String signature = oAuthSignatureBuilder.sign(TestDataProvider.METHOD, "http://127.0.0.1:9000/api?name=john&age=26&gender=male", TestDataProvider.CONSUMERSECRET, TestDataProvider.ACCESSSECRET, params);
-        assertEquals(TestDataProvider.EXPECTEDHMACSHA1, signature);
+        assertEquals("zj2yeosIktVFX2YcCuMvbJV3O58=", signature);
     }
 
     public void testSign2() throws GeneralSecurityException {
