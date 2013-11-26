@@ -58,6 +58,8 @@ public class OAuthSignatureBuilder {
         signatureBaseString.append("&");
         signatureBaseString.append(percentEscaper.escape(url));
         signatureBaseString.append("&");
+        System.out.println("vorher  = " + parameterString);
+        System.out.println("nachher = " + percentEscaper.escape(parameterString));
         signatureBaseString.append(percentEscaper.escape(parameterString));
         return signatureBaseString.toString();
     }
@@ -133,10 +135,10 @@ public class OAuthSignatureBuilder {
             String[] pairs = urlParamString.split("&");
             for (int i = 0; i < pairs.length; i++) {
                 String[] entry = pairs[i].split("=");
-                String key = percentEscaper.escape(entry[0]);
+                String key = entry[0];
                 String value = "";
                 if(entry.length > 1) {
-                    value = percentEscaper.escape(entry[1]);
+                    value = entry[1];
                 }
                 params.add(new OAuthParameter(key, value));
             }

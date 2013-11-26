@@ -19,7 +19,7 @@ public class TestOAuthParameter extends TestCase {
         String encodedEmailValue = null;
         for (OAuthParameter p : params) {
             if (p.getKey().equals("email_address")) {
-                assertEquals("email_address=raoul.schmidiger%40gmail.com", p.toString());
+                assertEquals("email_address=raoul.schmidiger@gmail.com", p.toString());
             }
         }
     }
