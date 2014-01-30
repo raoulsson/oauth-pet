@@ -26,15 +26,15 @@ public class OAuthSignatureBuilder {
     public String sign(String httpMethod, String url, String consumerSecret, String accessSecret, List<OAuthParameter> params) throws GeneralSecurityException {
 
         String parameterString = computeParameterString(params);
-        System.out.println("baseString = " + parameterString);
+//        System.out.println("baseString = " + parameterString);
 
         String signatureBaseString = computeSignatureBaseString(httpMethod, stripOffUrlParams(url), parameterString);
-        System.out.println("signatureBaseString = " + signatureBaseString);
+//        System.out.println("signatureBaseString = " + signatureBaseString);
 
         String signature = calculateHmacSha1(consumerSecret, accessSecret, signatureBaseString);
-        System.out.println("signature = " + signature);
+//        System.out.println("signature = " + signature);
 
-        System.out.println(toLogString(httpMethod, url, consumerSecret, accessSecret, params));
+//        System.out.println(toLogString(httpMethod, url, consumerSecret, accessSecret, params));
 
         return signature;
     }
@@ -58,8 +58,8 @@ public class OAuthSignatureBuilder {
         signatureBaseString.append("&");
         signatureBaseString.append(percentEscaper.escape(url));
         signatureBaseString.append("&");
-        System.out.println("vorher  = " + parameterString);
-        System.out.println("nachher = " + percentEscaper.escape(parameterString));
+//        System.out.println("vorher  = " + parameterString);
+//        System.out.println("nachher = " + percentEscaper.escape(parameterString));
         signatureBaseString.append(percentEscaper.escape(parameterString));
         return signatureBaseString.toString();
     }

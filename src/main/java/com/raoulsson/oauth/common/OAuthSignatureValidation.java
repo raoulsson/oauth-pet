@@ -54,7 +54,7 @@ public class OAuthSignatureValidation {
     }
 
     public String decodeUrl(String url) throws UnsupportedEncodingException {
-        System.out.println(url);
+//        System.out.println(url);
         return java.net.URLDecoder.decode(url, "UTF-8");
     }
 
