@@ -12,7 +12,7 @@ public class TestOAuthHeaderBuilder extends TestCase {
 
     private OAuthSignatureBuilder oAuthSignatureBuilder;
     private OAuthHeaderBuilder oAuthHeaderBuilder;
-    private IDataProvider testDataProvider = new TestDataProvider();
+    private final IDataProvider testDataProvider = new TestDataProvider();
 
     public void setUp() {
         this.oAuthHeaderBuilder = new OAuthHeaderBuilder();

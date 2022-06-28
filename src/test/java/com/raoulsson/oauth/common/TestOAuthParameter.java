@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class TestOAuthParameter extends TestCase {
 
-    private OAuthSignatureBuilder oAuthSignatureBuilder = new OAuthSignatureBuilder();
+    private final OAuthSignatureBuilder oAuthSignatureBuilder = new OAuthSignatureBuilder();
 
     public void testToString() {
         List<OAuthParameter> params = oAuthSignatureBuilder.getSortedOAuthParameters(TestDataProvider.CONSUMERKEY, TestDataProvider.ACCESSTOKEN);

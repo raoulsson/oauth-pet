@@ -12,7 +12,7 @@ import java.util.List;
 public class TestOAuthSignatureBuilder extends TestCase {
 
     private OAuthSignatureBuilder oAuthSignatureBuilder;
-    private IDataProvider testDataProvider = new TestDataProvider();
+    private final IDataProvider testDataProvider = new TestDataProvider();
 
     public void setUp() {
         this.oAuthSignatureBuilder = new OAuthSignatureBuilder();
@@ -81,7 +81,7 @@ public class TestOAuthSignatureBuilder extends TestCase {
                 encodedEmailValue = p.getValue();
             }
         }
-        assertTrue(encodedEmailValue != null);
+        assertNotNull(encodedEmailValue);
         assertEquals("raoul.schmidiger@gmail.com", encodedEmailValue);
 
         oAuthSignatureBuilder.sign(TestDataProvider.METHOD, "http://127.0.0.1:9000/api?name=john&age=26&gender=male", TestDataProvider.CONSUMERSECRET, TestDataProvider.ACCESSSECRET, params);

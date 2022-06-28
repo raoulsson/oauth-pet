@@ -5,7 +5,6 @@ import com.google.api.client.util.escape.PercentEscaper;
 
 import java.security.GeneralSecurityException;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
 public class OAuthSignatureBuilder {
 
     private IDataProvider dataProvider = new DataProvider();
-    private PercentEscaper percentEscaper = new PercentEscaper("-._~", false);
+    private final PercentEscaper percentEscaper = new PercentEscaper("-._~", false);
 
     public static final String SIGNATURE_METHOD = "HMAC-SHA1";
     public static final String VERSION = "1.0";
@@ -53,30 +52,27 @@ public class OAuthSignatureBuilder {
     }
 
     protected String computeSignatureBaseString(String httpMethod, String url, String parameterString) {
-        StringBuilder signatureBaseString = new StringBuilder();
-        signatureBaseString.append(httpMethod.toUpperCase());
-        signatureBaseString.append("&");
-        signatureBaseString.append(percentEscaper.escape(url));
-        signatureBaseString.append("&");
+        String signatureBaseString = httpMethod.toUpperCase() +
+                "&" +
+                percentEscaper.escape(url) +
+                "&" +
 //        System.out.println("vorher  = " + parameterString);
 //        System.out.println("nachher = " + percentEscaper.escape(parameterString));
-        signatureBaseString.append(percentEscaper.escape(parameterString));
-        return signatureBaseString.toString();
+                percentEscaper.escape(parameterString);
+        return signatureBaseString;
     }
 
     protected String computeParameterString(List<OAuthParameter> params) {
         StringBuilder baseString = new StringBuilder("");
-        Iterator<OAuthParameter> iterator = params.iterator();
-        while (iterator.hasNext()) {
-            OAuthParameter entry = iterator.next();
-//            entry.setValue(percentEscaper.escape(entry.getValue()));
+        for (OAuthParameter entry : params) {
+            //            entry.setValue(percentEscaper.escape(entry.getValue()));
             entry.setValue(entry.getValue());
             baseString.append(entry.getKey());
             baseString.append("=");
             baseString.append(entry.getValue());
             baseString.append("&");
         }
-        return baseString.toString().substring(0, baseString.length() -1);
+        return baseString.substring(0, baseString.length() -1);
     }
 
     public List<OAuthParameter> getSortedOAuthParameters(String consumerKey, String accessToken) {
@@ -86,7 +82,7 @@ public class OAuthSignatureBuilder {
     }
 
     public List<OAuthParameter> getSortedOAuthParameters(String consumerKey, String accessToken, String nonce, String timestamp) {
-        final List<OAuthParameter> params = new LinkedList<OAuthParameter>();
+        final List<OAuthParameter> params = new LinkedList<>();
         params.add(new OAuthParameter("oauth_signature_method", SIGNATURE_METHOD));
         params.add(new OAuthParameter("oauth_consumer_key", consumerKey));
         params.add(new OAuthParameter("oauth_nonce", nonce));
@@ -113,9 +109,7 @@ public class OAuthSignatureBuilder {
         sb.append("accessSecret=\"");
         sb.append(accessSecret);
         sb.append("\", \n");
-        Iterator<OAuthParameter> iterator = params.iterator();
-        while (iterator.hasNext()) {
-            OAuthParameter entry = iterator.next();
+        for (OAuthParameter entry : params) {
             sb.append(entry.getKey());
             sb.append("=\"");
             sb.append(entry.getValue());
@@ -131,13 +125,13 @@ public class OAuthSignatureBuilder {
 
     public void addUrlParameters(String url, List<OAuthParameter> params) {
         if(url.contains("?")) {
-            String urlParamString = url.substring(url.indexOf("?") + 1, url.length());
+            String urlParamString = url.substring(url.indexOf("?") + 1);
             String[] pairs = urlParamString.split("&");
-            for (int i = 0; i < pairs.length; i++) {
-                String[] entry = pairs[i].split("=");
+            for (String pair : pairs) {
+                String[] entry = pair.split("=");
                 String key = entry[0];
                 String value = "";
-                if(entry.length > 1) {
+                if (entry.length > 1) {
                     value = entry[1];
                 }
                 params.add(new OAuthParameter(key, value));
