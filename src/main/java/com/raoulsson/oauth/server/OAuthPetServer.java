@@ -2,9 +2,6 @@ package com.raoulsson.oauth.server;
 
 import com.raoulsson.oauth.common.OAuthSignatureValidation;
 
-import java.io.UnsupportedEncodingException;
-import java.security.GeneralSecurityException;
-
 /**
  * Facade to demonstrate the use on the server side (or to use directly).
  *
